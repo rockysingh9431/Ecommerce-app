@@ -1,24 +1,16 @@
-import express from "express";
-import products from "./data/products.js";
-import dotenv from "dotenv";
-
-
-dotenv.config();
+require("dotenv").config();
+const express = require("express");
+const products = require("./data/products");
+const ConnectTOMongoDB = require("./config/db");
+const productRouter = require("./routes/productRoutes");
+ConnectTOMongoDB();
 const PORT = process.env.PORT;
 const app = express();
+const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 
-app.get("/", (req, res) => {
-  res.send("API IS Running............");
-});
-
-app.get("/api/products", (req, res) => {
-  res.json(products);
-});
-
-app.get("/api/products/:id", (req, res) => {
-  const product = products.find((p) => p._id === req.params.id);
-  res.json(product);
-});
+app.use("/api/products", productRouter);
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server is running Port: ${PORT}`);

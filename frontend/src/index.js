@@ -4,6 +4,8 @@ import "./assets/styles/bootstrap.custom.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "./assets/styles/index.css";
 import App from "./App";
+import { Provider } from "react-redux";
+import store from "./utils/store";
 import reportWebVitals from "./reportWebVitals";
 import ProductScreen from "./components/ProductScreen";
 import {
@@ -25,7 +27,9 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 
