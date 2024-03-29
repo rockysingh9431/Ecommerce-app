@@ -1,9 +1,11 @@
 import { useParams, Link } from "react-router-dom";
-import Message from "./Message";
-import Rating from "./Rating";
+import Message from "../components/Message";
+import Rating from "../components/Rating";
 import { useGetProductDetailsQuery } from "../slices/productSlice";
-import Loader from "./Loader";
+import Loader from "../components/Loader";
+import { useState } from "react";
 import {
+  Form,
   Card,
   Row,
   Col,
@@ -13,20 +15,22 @@ import {
   Button,
 } from "react-bootstrap";
 
-
 const ProductScreen = () => {
   const { id: productId } = useParams();
+
+  const [quantity, setQuantity] = useState("1");
   const {
     data: product,
     isLoading,
     error,
   } = useGetProductDetailsQuery(productId);
+  console.log(product);
   return (
     <>
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>{error.data.message || error.error}</Message>
+        <Message variant="danger">{error.data.message || error.error}</Message>
       ) : (
         <Container>
           <div className="mt-5">
@@ -77,15 +81,39 @@ const ProductScreen = () => {
                           <strong>
                             {product.countInStock > 0
                               ? "Available 🟢"
-                              : "Out Of Stock 🔴"}
+                              : "Out Of Stock"}
                           </strong>
                         </Col>
                       </Row>
                     </ListGroup.Item>
-
+                    {product.countInStock > 0 && (
+                      <ListGroup.Item>
+                        <Row>
+                          <Col>Quantity</Col>
+                          <Col>
+                            <Form.Control
+                              as="select"
+                              value={quantity}
+                              onChange={(e) => setQuantity(e.target.value)}
+                            >
+                              {[...Array(product.countInStock).keys()].map(
+                                (x) => {
+                                  return (
+                                    <option key={x + 1} value={x + 1}>
+                                      {x + 1}
+                                    </option>
+                                  );
+                                }
+                              )}
+                            </Form.Control>
+                          </Col>
+                        </Row>
+                      </ListGroup.Item>
+                    )}
                     <ListGroup.Item>
+                      <span className="ms-2">${quantity * product.price}</span>
                       <Button
-                        className="btn block"
+                        className="btn block ms-7"
                         type="button"
                         disabled={product.countInStock === 0}
                       >

@@ -11310,6 +11310,9 @@ fieldset:disabled .btn {
   .ms-xl-auto {
     margin-left: auto !important;
   }
+  .ms-7{
+    margin-left:4.5rem !important
+  }
   .p-xl-0 {
     padding: 0 !important;
   }
