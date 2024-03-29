@@ -5,7 +5,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "./assets/styles/index.css";
 import App from "./App";
 import { Provider } from "react-redux";
-import store from "./utils/store";
+import store from "./slices and store/store";
 import reportWebVitals from "./reportWebVitals";
 import ProductScreen from "./screens/ProductScreen";
 import {

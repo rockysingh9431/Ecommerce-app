@@ -1,7 +1,7 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Message from "../components/Message";
 import Rating from "../components/Rating";
-import { useGetProductDetailsQuery } from "../slices/productSlice";
+import { useGetProductDetailsQuery } from "../slices and store/productSlice";
 import Loader from "../components/Loader";
 import { useState } from "react";
 import {
@@ -14,17 +14,23 @@ import {
   Container,
   Button,
 } from "react-bootstrap";
-
+import { addToCart } from "../slices and store/cartSlice";
+import { useDispatch } from "react-redux";
 const ProductScreen = () => {
   const { id: productId } = useParams();
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [quantity, setQuantity] = useState("1");
   const {
     data: product,
     isLoading,
     error,
   } = useGetProductDetailsQuery(productId);
-  console.log(product);
+  const addToCartHandler = () => {
+    dispatch(addToCart({ ...product, quantity }));
+    navigate("/cart");
+  };
+
   return (
     <>
       {isLoading ? (
@@ -34,7 +40,9 @@ const ProductScreen = () => {
       ) : (
         <Container>
           <div className="mt-5">
-            <Link className="btn btn-light mb-2">Back to Home</Link>
+            <Link to="/" className="btn btn-light mb-2">
+              Back to Home
+            </Link>
             <Row>
               <Col md={5}>
                 <Image src={product.image} alt={product.name} fluid />
@@ -52,10 +60,7 @@ const ProductScreen = () => {
                       numReviews={`${product.numReviews} reviews`}
                     />{" "}
                   </ListGroup.Item>
-                  <ListGroup.Item>
-                    Price: ${product.price}
-                    <button className="btn btn-primary ml-20">Details</button>
-                  </ListGroup.Item>
+                  <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
 
                   <ListGroup.Item>
                     <Link to={`/product/${product._id}`}></Link>
@@ -116,6 +121,7 @@ const ProductScreen = () => {
                         className="btn block ms-7"
                         type="button"
                         disabled={product.countInStock === 0}
+                        onClick={addToCartHandler}
                       >
                         Add to Cart
                       </Button>
