@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Message from "../components/Message";
 import Rating from "../components/Rating";
-import { useGetProductDetailsQuery } from "../slices and store/productSlice";
+import { useGetProductDetailsQuery } from "../slice_store/productSlice";
 import Loader from "../components/Loader";
 import { useState } from "react";
 import {
@@ -14,13 +14,13 @@ import {
   Container,
   Button,
 } from "react-bootstrap";
-import { addToCart } from "../slices and store/cartSlice";
+import { addToCart } from "../slice_store/cartSlice";
 import { useDispatch } from "react-redux";
 const ProductScreen = () => {
   const { id: productId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState("1");
+  const [quantity, setQuantity] = useState();
   const {
     data: product,
     isLoading,
@@ -28,9 +28,8 @@ const ProductScreen = () => {
   } = useGetProductDetailsQuery(productId);
   const addToCartHandler = () => {
     dispatch(addToCart({ ...product, quantity }));
-    navigate("/cart");
   };
-
+  console.log(typeof quantity);
   return (
     <>
       {isLoading ? (
@@ -99,7 +98,9 @@ const ProductScreen = () => {
                             <Form.Control
                               as="select"
                               value={quantity}
-                              onChange={(e) => setQuantity(e.target.value)}
+                              onChange={(e) =>
+                                setQuantity(Number(e.target.value))
+                              }
                             >
                               {[...Array(product.countInStock).keys()].map(
                                 (x) => {
@@ -116,7 +117,9 @@ const ProductScreen = () => {
                       </ListGroup.Item>
                     )}
                     <ListGroup.Item>
-                      <span className="ms-2">${quantity * product.price}</span>
+                      <span className="ms-2">
+                        ${(quantity * product.price).toFixed(2)}
+                      </span>
                       <Button
                         className="btn block ms-7"
                         type="button"

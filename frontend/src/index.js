@@ -5,9 +5,17 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "./assets/styles/index.css";
 import App from "./App";
 import { Provider } from "react-redux";
-import store from "./slices and store/store";
+import store from "./slice_store/store";
 import reportWebVitals from "./reportWebVitals";
 import ProductScreen from "./screens/ProductScreen";
+import CartScreen from "./screens/CartScreen";
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
+import ShippingScreen from "./screens/ShippingScreen";
+import PrivateRouter from "./components/PrivateRouter";
+import PaymentScreen from "./screens/PaymentScreen";
+import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import OrderScreen from "./screens/OrderScreen";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -21,6 +29,16 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<Homescreen />}></Route>
       <Route path="/product/:id" element={<ProductScreen />}></Route>
+      <Route path="/cart" element={<CartScreen />}></Route>
+      <Route path="/login" element={<LoginScreen />}></Route>
+      <Route path="/register" element={<RegisterScreen />}></Route>
+
+      <Route path="" element={<PrivateRouter />}>
+        <Route path="/shipping" element={<ShippingScreen />}></Route>
+        <Route path="/payment" element={<PaymentScreen />}></Route>
+        <Route path="/placeorder" element={<PlaceOrderScreen />}></Route>
+        <Route path="/order/:id" element={<OrderScreen />}></Route>
+      </Route>
     </Route>
   )
 );
