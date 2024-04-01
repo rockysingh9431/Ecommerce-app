@@ -17,7 +17,6 @@ const CartScreen = () => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
   const addToCartHandler = (product, quantity) => {
-    console.log(product, quantity);
     dispatch(addToCart({ ...product, quantity }));
   };
 
