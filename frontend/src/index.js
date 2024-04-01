@@ -17,6 +17,9 @@ import PrivateRouter from "./components/PrivateRouter";
 import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
+import ProfileScreen from "./screens/ProfileScreen";
+import AdminRouter from "./components/AdminRouter";
+import OrderListScreen from "./screens/admin/OrderListScreen";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -39,6 +42,10 @@ const router = createBrowserRouter(
         <Route path="/payment" element={<PaymentScreen />}></Route>
         <Route path="/placeorder" element={<PlaceOrderScreen />}></Route>
         <Route path="/order/:id" element={<OrderScreen />}></Route>
+        <Route path="/profile" element={<ProfileScreen />}></Route>
+      </Route>
+      <Route path="/admin" element={<AdminRouter />}>
+        <Route path="/admin/orderlist" element={<OrderListScreen />}></Route>
       </Route>
     </Route>
   )
