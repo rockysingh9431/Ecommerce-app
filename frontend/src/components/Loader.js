@@ -3,7 +3,7 @@ import { Spinner } from "react-bootstrap";
 const Loader = () => {
   return (
     <Spinner
-    className="my-3"
+      className="my-3"
       animation="border"
       role="status"
       style={{

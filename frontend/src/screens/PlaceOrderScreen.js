@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { useCreateOrderMutation } from "../slice_store/orderApiSlice";
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import CheckOutSteps from "../components/CheckOutSteps";
-import { toast } from "react-toastify";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { clearCartItems } from "../slice_store/cartSlice";
@@ -32,11 +32,10 @@ const PlaceOrderScreen = () => {
         taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
       }).unwrap();
-      console.log(res);
       dispatch(clearCartItems());
       navigate(`/order/${res._id}`);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error);
     }
   };
   return (

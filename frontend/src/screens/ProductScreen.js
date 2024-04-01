@@ -1,4 +1,4 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Message from "../components/Message";
 import Rating from "../components/Rating";
 import { useGetProductDetailsQuery } from "../slice_store/productSlice";
@@ -18,7 +18,6 @@ import { addToCart } from "../slice_store/cartSlice";
 import { useDispatch } from "react-redux";
 const ProductScreen = () => {
   const { id: productId } = useParams();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState();
   const {
@@ -29,7 +28,6 @@ const ProductScreen = () => {
   const addToCartHandler = () => {
     dispatch(addToCart({ ...product, quantity }));
   };
-  console.log(typeof quantity);
   return (
     <>
       {isLoading ? (
