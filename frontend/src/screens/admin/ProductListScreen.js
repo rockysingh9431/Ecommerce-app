@@ -2,19 +2,35 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button, Row, Col } from "react-bootstrap";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
+import Paginate from "../../components/Paginate";
 import {
   useGetProductsQuery,
   useCreateProductMutation,
+  useDeleteProductMutation,
 } from "../../slice_store/productApiSlice";
 
 const ProductListScreen = () => {
-  const { data: products, refetch, isLoading, error } = useGetProductsQuery();
+  const { pageNumber } = useParams();
+  const { data, refetch, isLoading, error } = useGetProductsQuery({
+    pageNumber,
+  });
   const [createProduct, { isLoading: loadingCreate }] =
     useCreateProductMutation();
-  const deleteHandler = (id) => {
-    console.log("submit");
+  const [deleteProduct, { isLoading: loadingDelete }] =
+    useDeleteProductMutation();
+  const deleteHandler = async (id) => {
+    if (window.confirm("Are you sure you want to delete product?")) {
+      try {
+        deleteProduct(id);
+        refetch();
+        toast.success("Product Deleted");
+      } catch (error) {
+        toast.error(error?.data?.message || error?.message);
+      }
+    }
   };
   const createProductHandler = async () => {
     if (window.confirm("Are you sure you want to new product?")) {
@@ -39,6 +55,7 @@ const ProductListScreen = () => {
         </Col>
       </Row>
       {loadingCreate && <Loader />}
+      {loadingDelete && <Loader />}
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -56,7 +73,7 @@ const ProductListScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => (
+              {data.products.map((product) => (
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
@@ -71,22 +88,21 @@ const ProductListScreen = () => {
                     </LinkContainer>
                   </td>
                   <td>
-                    <LinkContainer to={`/admin/products/${product._id}`}>
-                      <Button
-                        variant="light"
-                        className="btn-sm mx-2"
-                        onClick={() => {
-                          deleteHandler(product._id);
-                        }}
-                      >
-                        <FaTrash style={{ color: "red" }} />
-                      </Button>
-                    </LinkContainer>
+                    <Button
+                      variant="light"
+                      className="btn-sm mx-2"
+                      onClick={() => {
+                        deleteHandler(product._id);
+                      }}
+                    >
+                      <FaTrash style={{ color: "red" }} />
+                    </Button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </Table>
+          <Paginate pages={data.pages} page={data.page} isAdmin={true} />
         </>
       )}
     </>

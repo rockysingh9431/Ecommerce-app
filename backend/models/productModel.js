@@ -1,4 +1,28 @@
 const { Schema, model } = require("mongoose");
+
+const reviewSchema = new Schema(
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    rating: {
+      type: Number,
+      required: true,
+    },
+    comment: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
 const productSchema = new Schema(
   {
     user: {
@@ -26,10 +50,7 @@ const productSchema = new Schema(
       type: String,
       required: true,
     },
-    reviews: {
-      type: Schema.Types.ObjectId,
-      ref: "Review",
-    },
+    reviews: [reviewSchema], // Use an array for referencing multiple reviews
     numReviews: {
       type: Number,
       required: true,
