@@ -20,6 +20,8 @@ import {
 } from "../slice_store/productApiSlice";
 import Loader from "../components/Loader";
 import { addToCart } from "../slice_store/cartSlice";
+import Meta from "../components/Meta";
+
 const ProductScreen = () => {
   const { id: productId } = useParams();
   const dispatch = useDispatch();
@@ -67,6 +69,7 @@ const ProductScreen = () => {
             <Link to="/" className="btn btn-light mb-2">
               Back to Home
             </Link>
+            <Meta title={product.name} />
             <Row>
               <Col md={5}>
                 <Image src={product.image} alt={product.name} fluid />

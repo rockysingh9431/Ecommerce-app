@@ -26,8 +26,7 @@ const Homescreen = () => {
         <div>{error.data.message || error.error}</div>
       ) : (
         <>
-          {" "}
-          <h1 className=" mt-4 text-center">Latest Products</h1>
+          <h1 className=" mt-2 text-center">Latest Products</h1>
           <Row className="m-2">
             {data.products.map((product) => {
               return (

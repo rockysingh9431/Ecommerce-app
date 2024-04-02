@@ -85,7 +85,6 @@ const ProductEditScreen = () => {
       <FormContainer>
         <h1>Edit Product</h1>
         {loadingUpdateProduct && <Loader />}
-        {loadingImageUpdate && <Loader />}
         {isLoading ? (
           <Loader />
         ) : error ? (
@@ -111,22 +110,23 @@ const ProductEditScreen = () => {
                 placeholder="Enter your price"
                 onChange={(e) => setPrice(e.target.value)}
               />
-
-              <Form.Group controlId="image" className="my-2">
-                <Form.Label>Image</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="upload Image"
-                  value={image}
-                  onChange={(e) => setImage}
-                ></Form.Control>
-                <Form.Control
-                  type="file"
-                  label="choose file"
-                  onChange={uploadFileHandler}
-                ></Form.Control>
-              </Form.Group>
             </Form.Group>
+            <Form.Group controlId="image" className="my-2">
+              <Form.Label>Image</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="upload Image"
+                value={image}
+                onChange={(e) => setImage}
+              ></Form.Control>
+              <Form.Control
+                type="file"
+                label="choose file"
+                onChange={uploadFileHandler}
+              ></Form.Control>
+              {loadingImageUpdate && <Loader />}
+            </Form.Group>
+
             <Form.Group className="my-2" controlId="brand">
               <Form.Label>Brand</Form.Label>
               <Form.Control
