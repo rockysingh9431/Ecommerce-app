@@ -1,5 +1,5 @@
 import { Row, Col } from "react-bootstrap";
-import { useGetProductsQuery } from "../slice_store/productSlice";
+import { useGetProductsQuery } from "../slice_store/productApiSlice";
 import Product from "../components/Product";
 import Loader from "../components/Loader";
 const Homescreen = () => {

@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import Message from "../components/Message";
 import Rating from "../components/Rating";
-import { useGetProductDetailsQuery } from "../slice_store/productSlice";
+import { useGetProductDetailsQuery } from "../slice_store/productApiSlice";
 import Loader from "../components/Loader";
 import { useState } from "react";
 import {
