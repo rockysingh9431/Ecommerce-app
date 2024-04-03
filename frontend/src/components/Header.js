@@ -41,7 +41,7 @@ const Header = () => {
         </LinkContainer>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="justify-content-center ms-20">
+          <Nav className="justify-content-center ms-auto">
             <SearchBox />
           </Nav>
           <Nav className="ms-auto">

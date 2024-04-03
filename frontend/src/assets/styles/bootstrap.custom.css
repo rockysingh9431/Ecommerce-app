@@ -7899,8 +7899,14 @@ fieldset:disabled .btn {
 .w-100 {
   width: 100% !important;
 }
-.w-20 {
+.Search {
   width: 600px;
+}
+
+@media (max-width: 768px) {
+  .Search {
+    display:none
+  }
 }
 .w-auto {
   width: auto !important;
