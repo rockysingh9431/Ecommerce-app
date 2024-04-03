@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import { Carousel, Image } from "react-bootstrap";
 import Message from "./Message";
-import Loader from "./Loader";
 import { useGetTopProductQuery } from "../slice_store/productApiSlice";
 
 const ProductCarousel = () => {
   const { data: products, isLoading, error } = useGetTopProductQuery();
   return isLoading ? (
-    <Loader />
+    <></>
   ) : error ? (
     <Message variant="danger"></Message>
   ) : (
@@ -15,7 +14,12 @@ const ProductCarousel = () => {
       {products.map((product) => (
         <Carousel.Item key={product._id}>
           <Link to={`/product/${product._id}`}>
-            <Image src={product.image} alt={product.name} fluid />
+            <Image
+              src={product.image}
+              alt={product.name}
+              fluid
+              style={{ width: "1400px", height: "500px" }}
+            />
             <Carousel.Caption className="carousel-caption">
               <h2>
                 {product.name} (${product.price})

@@ -29,10 +29,10 @@ const CartScreen = () => {
   return (
     <Row>
       <Col md={8}>
-        <h1 style={{ margin: "20px" }}>ShoppingCart</h1>
+        <h1 style={{ margin: "20px" }}>Your Cart</h1>
         {cartItems.length === 0 ? (
           <Message>
-            Your Cart Is Empty<Link to="/">Go Back</Link>
+            Your Cart Is Empty <Link to="/">Go Back</Link>
           </Message>
         ) : (
           <ListGroup variant="flush">

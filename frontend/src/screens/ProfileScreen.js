@@ -74,7 +74,7 @@ const ProfileScreen = () => {
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="password" className="my-3">
-            <Form.Label>Email</Form.Label>
+            <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
               placeholder="password"
@@ -83,7 +83,7 @@ const ProfileScreen = () => {
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="confirmPassword" className="my-3">
-            <Form.Label>Email</Form.Label>
+            <Form.Label>Confirm Password</Form.Label>
             <Form.Control
               type="password"
               placeholder="Confirm password"

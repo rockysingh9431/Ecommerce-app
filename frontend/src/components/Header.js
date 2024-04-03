@@ -27,8 +27,9 @@ const Header = () => {
     <header>
       <Navbar
         bg="dark"
+        fixed="top"
         variant="dark"
-        className="px-4"
+        className="px-4 mb-5"
         expand="lg"
         collapseOnSelect
       >
@@ -40,8 +41,10 @@ const Header = () => {
         </LinkContainer>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ms-auto">
+          <Nav className="justify-content-center ms-20">
             <SearchBox />
+          </Nav>
+          <Nav className="ms-auto">
             <LinkContainer to="/cart">
               <Nav.Link>
                 <FaShoppingCart />
