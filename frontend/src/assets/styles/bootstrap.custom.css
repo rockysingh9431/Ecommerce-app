@@ -7905,9 +7905,10 @@ fieldset:disabled .btn {
 
 @media (max-width: 768px) {
   .Search {
-    display:none
+    width:400px;
   }
 }
+
 .w-auto {
   width: auto !important;
 }
