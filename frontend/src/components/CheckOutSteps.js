@@ -1,46 +1,42 @@
-import { Nav } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
-
+import { NavLink } from "react-router-dom";
 const CheckOutSteps = ({ step1, step2, step3, step4 }) => {
   return (
-    <Nav className="justify-content-center mb-4">
-      <Nav.Item>
-        {step1 ? (
-          <LinkContainer to="/login">
-            <Nav.Link>SignIn</Nav.Link>
-          </LinkContainer>
-        ) : (
-          <Nav.Link disabled>SignIn</Nav.Link>
-        )}
-      </Nav.Item>
-      <Nav.Item>
-        {step2 ? (
-          <LinkContainer to="/shipping">
-            <Nav.Link>Shipping</Nav.Link>
-          </LinkContainer>
-        ) : (
-          <Nav.Link disabled>Shipping</Nav.Link>
-        )}
-      </Nav.Item>
-      <Nav.Item>
-        {step3 ? (
-          <LinkContainer to="/payment">
-            <Nav.Link>Payment</Nav.Link>
-          </LinkContainer>
-        ) : (
-          <Nav.Link disabled>Payment</Nav.Link>
-        )}
-      </Nav.Item>
-      <Nav.Item>
-        {step4 ? (
-          <LinkContainer to="/placeorder">
-            <Nav.Link>Place Order</Nav.Link>
-          </LinkContainer>
-        ) : (
-          <Nav.Link disabled>Place Order</Nav.Link>
-        )}
-      </Nav.Item>
-    </Nav>
+    <nav className="flex justify-center">
+      <div className="flex justify-between w-[450px] text-slate-950 font-bold">
+        <div>
+          {step1 ? (
+            <NavLink to="/signin">SignIn</NavLink>
+          ) : (
+            <div className="text-gray-400 cursor-pointer">SignIn</div>
+          )}
+        </div>
+        <div>
+          {step2 ? (
+            <NavLink to="/shipping">
+              <div>Shipping</div>
+            </NavLink>
+          ) : (
+            <div className="text-gray-400 cursor-pointer">Shipping</div>
+          )}
+        </div>
+        <div>
+          {step3 ? (
+            <NavLink to="/payment">Payment</NavLink>
+          ) : (
+            <div className="text-gray-400 cursor-pointer">Payment</div>
+          )}
+        </div>
+        <div>
+          {step4 ? (
+            <NavLink to="/placeorder">
+              <div>Place Order</div>
+            </NavLink>
+          ) : (
+            <div className="text-gray-400 cursor-pointer">Place Order</div>
+          )}
+        </div>
+      </div>
+    </nav>
   );
 };
 export default CheckOutSteps;

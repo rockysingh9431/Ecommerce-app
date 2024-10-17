@@ -1,22 +1,24 @@
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import { Container } from "react-bootstrap";
-import { Outlet } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./slice_store/store";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { HelmetProvider } from "react-helmet-async";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { RouterProvider } from "react-router-dom";
+import router from "./router";
 
 const App = () => {
   return (
-    <>
-      <Header />
-      <main className="mt-8">
-        <Container>
-          <Outlet />
-        </Container>
-      </main>
-      <Footer />
+    <HelmetProvider>
+      <Provider store={store}>
+        <PayPalScriptProvider deferLoading={true}>
+          <div className="min-h-screen bg-gray-50">
+            <RouterProvider router={router} />
+          </div>
+        </PayPalScriptProvider>
+      </Provider>
       <ToastContainer />
-    </>
+    </HelmetProvider>
   );
 };
 export default App;

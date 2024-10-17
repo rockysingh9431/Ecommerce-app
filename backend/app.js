@@ -7,9 +7,17 @@ const productRouter = require("./routes/productRoutes");
 const userRouter = require("./routes/userRoutes");
 const orderRouter = require("./routes/orderRoutes");
 const uploadRouter = require("./routes/uploadRoutes");
+const cors = require("cors");
 ConnectTOMongoDB();
 const PORT = process.env.PORT;
 const app = express();
+
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Your frontend's URL
+    credentials: true, // Allow cookies and other credentials to be sent
+  })
+);
 
 // Body Parser Middleware
 app.use(express.json());

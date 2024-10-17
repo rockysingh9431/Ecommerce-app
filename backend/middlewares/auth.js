@@ -5,7 +5,6 @@ const User = require("../models/userModel");
 // Protect Routes
 const protect = asyncHandler(async (req, res, next) => {
   // Read the token from cookie
-
   const token = req.cookies.token;
   if (token) {
     try {

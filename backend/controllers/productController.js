@@ -74,17 +74,12 @@ const getProductById = asyncHandler(async (req, res) => {
 // @routes GET /api/products/:id/reviews
 // @access private admin
 const getAllProducts = asyncHandler(async (req, res) => {
-  const pageSize = process.env.PAGINATION_LIMIT;
-  const page = Number(req.query.pageNumber) || 1;
   const keyword = req.query.keyword
     ? { name: { $regex: req.query.keyword, $options: "i" } }
     : {};
-  const count = await Product.countDocuments({ ...keyword });
-  const products = await Product.find({ ...keyword })
-    .limit(pageSize)
-    .skip(pageSize * (page - 1));
-
-  res.json({ products, page, pages: Math.ceil(count / pageSize) });
+  console.log(keyword);
+  const products = await Product.find({ ...keyword });
+  res.json({ products });
 });
 
 // @desc Create a new REview

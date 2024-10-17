@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useCreateOrderMutation } from "../slice_store/orderApiSlice";
-import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import CheckOutSteps from "../components/CheckOutSteps";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
@@ -39,108 +38,103 @@ const PlaceOrderScreen = () => {
     }
   };
   return (
-    <>
+    <div className="pt-24">
       <CheckOutSteps step1 step2 step3 step4 />
-      <Row>
-        <Col md={8}>
-          <ListGroup variant="flush">
-            <ListGroup.Item>
-              <h2>Shipping</h2>
-              <p>
-                <strong>Address</strong>
-                {":- "} {cart.shippingAddress.address},{" "}
-                {cart.shippingAddress.city} {cart.shippingAddress.postalCode},{" "}
-                {cart.shippingAddress.country}
-              </p>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <h2>Payment Method</h2>
-              <strong>Method:-</strong>
+      <div className="flex justify-between pt-6 px-24">
+        <div className=" w-2/3 p-3">
+          <div id="shipping" className="p-2 pb-7 mb-5 border-b border-gray-300">
+            <h2 className="text-3xl font-semibold text-teal-900 mb-3">
+              Shipping
+            </h2>
+            <p className="text-lg text-slate-500">
+              <strong>Address</strong>
+              {": "} {cart.shippingAddress.address}, {cart.shippingAddress.city}{" "}
+              {cart.shippingAddress.postalCode}, {cart.shippingAddress.country}
+            </p>
+          </div>
+          <div
+            id="payment-method"
+            className="p-2 pb-7 mb-5 border-b border-gray-300"
+          >
+            <h2 className="text-3xl font-semibold text-teal-900 mb-3">
+              Payment Method
+            </h2>
+            <p className="text-xl text-slate-500">
+              <strong>Method: </strong>
               {cart.paymentMethod}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <h2>Order Items</h2>
-              {cart.cartItems.length === 0 ? (
-                <Message>Your Cart is Empty</Message>
-              ) : (
-                <ListGroup variant="flush">
-                  {cart.cartItems.map((item, index) => (
-                    <ListGroup.Item key={index}>
-                      <Row>
-                        <Col md={1}>
-                          <Image
-                            src={item.image}
-                            alt={item.name}
-                            fluid
-                            rounded
-                          />
-                        </Col>
-                        <Col>
-                          <Link to={`/products/${item.product}`}>
-                            {item.name}
-                          </Link>
-                        </Col>
-                        <Col md={4}>
-                          {item.quantity} x ${item.price} = $
-                          {item.quantity * item.price}
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  ))}
-                </ListGroup>
-              )}
-            </ListGroup.Item>
-          </ListGroup>
-        </Col>
-        <Col md={4}>
-          <Card>
-            <ListGroup variant="flush">
-              <ListGroup.Item>
-                <h2>Order Summary</h2>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Items: </Col>
-                  <Col>${cart.itemsPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Shipping: </Col>
-                  <Col>${cart.shippingPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Tax: </Col>
-                  <Col>${cart.taxPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Total: </Col>
-                  <Col>${cart.totalPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                {error && <Message variant="danger">{error.message}</Message>}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Button
-                  type="button"
-                  className="btn-block"
-                  disabled={cart.cartItems.length === 0}
-                  onClick={placeOrderHandler}
-                >
-                  Place Order
-                </Button>
-                {isLoading && <Loader />}
-              </ListGroup.Item>
-            </ListGroup>
-          </Card>
-        </Col>
-      </Row>
-    </>
+            </p>
+          </div>
+
+          <div className="p-2 mb-5">
+            <h2 className="text-3xl font-semibold text-teal-900 mb-5">
+              Order Items
+            </h2>
+            {cart.cartItems.length === 0 ? (
+              <Message>Your Cart is Empty</Message>
+            ) : (
+              <div>
+                {cart.cartItems.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex justify-between border-b border-gray-300 items-center p-2 pr-20 text-slate-500 text-md"
+                  >
+                    <div className="flex items-center justify-between">
+                      <img
+                        className="h-14 w-16 rounded-md  p-2"
+                        src={item.image}
+                        alt={item.name}
+                      />
+                      <Link to={`/products/${item.product}`}>{item.name}</Link>
+                    </div>
+                    <div md={4}>
+                      ${item.price} x {item.quantity} = $
+                      {(item.quantity * item.price).toFixed(2)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="text-lg border border-gray-300 shadow-lg shadow-gray-300 bg-gray-100 rounded-md w-1/3 h-96">
+          <h2 className="text-3xl text-teal-900 py-5 border-b-2 border-gray-300 text-center font-semibold">
+            Order Summary
+          </h2>
+          <div className="flex justify-between border-b-2 border-gray-200 px-8 py-3 text-slate-700 font-semibold">
+            <div>Items: </div>
+            <div>${cart.itemsPrice}</div>
+          </div>
+
+          <div className="flex justify-between border-b-2 border-gray-200 px-8 py-3 text-slate-700 font-semibold">
+            <div>Shipping: </div>
+            <div>${cart.shippingPrice}</div>
+          </div>
+          <div className="flex justify-between border-b-2 border-gray-200 px-8 py-3 text-slate-700 font-semibold">
+            <div>Tax: </div>
+            <div>${cart.taxPrice}</div>
+          </div>
+          <div className="flex justify-between border-b-2 border-gray-200 px-8 py-3 text-slate-700 font-semibold">
+            <div>Total: </div>
+            <div>${cart.totalPrice}</div>
+          </div>
+
+          {error && <Message success={false}>{error.message}</Message>}
+
+          <div className="mt-5 flex justify-center">
+            <button
+              type="button"
+              className="p-2 px-6 rounded-md text-white bg-slate-700"
+              disabled={cart.cartItems.length === 0}
+              onClick={placeOrderHandler}
+            >
+              Place Order
+            </button>
+            {isLoading && <Loader />}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 export default PlaceOrderScreen;
