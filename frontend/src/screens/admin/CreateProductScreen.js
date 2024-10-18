@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
 import {
@@ -7,7 +7,6 @@ import {
   useUploadProductImageMutation,
 } from "../../slice_store/productApiSlice";
 const CreateProductScreen = () => {
-  const { id: productId } = useParams();
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
@@ -25,9 +24,7 @@ const CreateProductScreen = () => {
   const navigate = useNavigate();
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log("hello");
-    const newProduct = {
-      _id: productId,
+    const product = {
       name,
       price,
       image,
@@ -36,15 +33,16 @@ const CreateProductScreen = () => {
       countInStock,
       description,
     };
-    const result = await createProduct(newProduct);
-    console.log(result.error, result);
-    if (result.error) {
-      toast.error("something went wrong");
-    } else {
-      toast.success("Product Updated Successfully");
-      navigate("/admin/productlist");
+    try {
+      await createProduct(product).unwrap();
+      toast.success("Product Created Successfully");
+      navigate("/admin/products");
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong");
     }
   };
+
   const uploadFileHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -61,7 +59,7 @@ const CreateProductScreen = () => {
     <div className="pt-24 px-24">
       <div className="">
         <h1 className="text-center text-teal-900 font-bold text-4xl">
-          Edit Product
+          Create Product
         </h1>
         {loadingCreateProduct && <Loader />}
         <div className="flex justify-center text-lg text-slate-600">
@@ -89,7 +87,7 @@ const CreateProductScreen = () => {
               <input
                 type="text"
                 placeholder="upload Image"
-                onChange={(e) => setImage}
+                onChange={(e) => setImage(e.target.value)}
                 className="outline-none text-sm border border-slate-300 focus:border-slate-700 text-slate-500 w-full rounded-md p-2"
               ></input>
               <input

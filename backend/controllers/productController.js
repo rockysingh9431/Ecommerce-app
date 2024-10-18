@@ -5,19 +5,23 @@ const Product = require("../models/productModel");
 // @routes POST /api/products/
 // @access private admin
 const createProduct = asyncHandler(async (req, res) => {
-  console.log("product created");
+  console.log("Create Product");
+  const { name, price, description, image, brand, category, countInStock } =
+    req.body;
+  console.log(req.body);
   const product = new Product({
-    name: "sample",
-    price: 0,
     user: req.user._id,
-    image: "/image/sample.jpg",
-    category: "sample category",
-    countInStock: 0,
-    numReviews: 0,
-    brand: "sample brand",
-    description: "sample description",
+    name,
+    price,
+    description,
+    image,
+    brand,
+    category,
+    countInStock,
   });
+  console.log(product);
   const savedProduct = await product.save();
+  if (!savedProduct) console.log(error);
   res.status(201).json(savedProduct);
 });
 
@@ -25,7 +29,6 @@ const createProduct = asyncHandler(async (req, res) => {
 // @routes PUT /api/products/:id
 // @access private,admin
 const updateProductById = asyncHandler(async (req, res) => {
-  console.log("hello");
   const { name, price, description, image, brand, category, countInStock } =
     req.body;
   const product = await Product.findById(req.params.id);
@@ -77,7 +80,6 @@ const getAllProducts = asyncHandler(async (req, res) => {
   const keyword = req.query.keyword
     ? { name: { $regex: req.query.keyword, $options: "i" } }
     : {};
-  console.log(keyword);
   const products = await Product.find({ ...keyword });
   res.json({ products });
 });
@@ -88,7 +90,6 @@ const getAllProducts = asyncHandler(async (req, res) => {
 const createProductReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body;
   const product = await Product.findById(req.params.id);
-  console.log(req.user);
   if (product) {
     const alreadyReviewed = product.reviews.find(
       (review) => review.user.toString() === req.user._id.toString()

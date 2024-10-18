@@ -43,8 +43,7 @@ const ProductEditScreen = () => {
   const navigate = useNavigate();
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log("hello");
-    const updatedProduct = {
+    const product = {
       _id: productId,
       name,
       price,
@@ -54,13 +53,13 @@ const ProductEditScreen = () => {
       countInStock,
       description,
     };
-    const result = await updateProduct(updatedProduct);
-    console.log(result.error, result);
-    if (result.error) {
-      toast.error("something went wrong");
-    } else {
-      toast.success("Product Updated Successfully");
+    try {
+      await updateProduct(product).unwrap();
+      toast.success("Product Created Successfully");
       navigate("/admin/products");
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong");
     }
   };
   const uploadFileHandler = async (e) => {

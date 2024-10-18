@@ -32,7 +32,7 @@ const ProductListScreen = () => {
   const createProductHandler = async () => {
     if (window.confirm("Are you sure you want to new product?")) {
       try {
-        navigate("/products/create");
+        navigate("/admin/products/create");
         refetch();
       } catch (error) {
         toast.error(error?.data?.message || error?.message);

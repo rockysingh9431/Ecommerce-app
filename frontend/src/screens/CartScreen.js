@@ -90,7 +90,9 @@ const CartScreen = () => {
           </div>
           <div className=" flex items-center">
             Total Price: $
-            {cartItems.reduce((acc, item) => acc + item.price, 0).toFixed(2)}
+            {cartItems
+              .reduce((acc, item) => acc + item.quantity * item.price, 0)
+              .toFixed(2)}
           </div>
         </div>
         <button

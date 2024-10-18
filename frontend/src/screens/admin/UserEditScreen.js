@@ -40,8 +40,7 @@ const UserEditScreen = () => {
         email,
         isAdmin,
       };
-      const result = await updateUser(updatedUser);
-      console.log(result);
+      await updateUser(updatedUser);
       toast.success("User Updated Successfully");
       navigate("/admin/users");
       refetch();

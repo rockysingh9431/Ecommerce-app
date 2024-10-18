@@ -11,8 +11,6 @@ import {
   useGetPayPalClientIdQuery,
   useDeliverOrderMutation,
 } from "../slice_store/orderApiSlice";
-import Divider from "../components/Divider";
-
 const OrderScreen = () => {
   const { id: orderId } = useParams();
   const {
@@ -106,7 +104,7 @@ const OrderScreen = () => {
       <h1 className="text-4xl  font-bold">Order Id: {orderId}</h1>
       <div className="flex justify-between">
         <div className="w-3/5">
-          <div className="text-lg p-5">
+          <div className="text-lg p-5 border-b border-gray-300 pb-7">
             <h2 className="text-3xl pb-5">Shipping</h2>
             <p>
               <strong>Name: </strong>
@@ -131,8 +129,8 @@ const OrderScreen = () => {
               )}
             </div>
           </div>
-          <Divider color={"bg-slate-300"} />
-          <div className="text-lg p-5">
+
+          <div className="text-lg p-5 border-b border-gray-300 pb-7">
             <h2 className="text-3xl pb-3">Payment Method</h2>
             <p>
               <strong>Method: </strong>
@@ -148,8 +146,7 @@ const OrderScreen = () => {
               )}
             </div>
           </div>
-          <Divider color={"bg-slate-300"} />
-          <div className="text-lg p-5">
+          <div className="text-lg p-5 border-b border-gray-300 pb-7">
             <h2 className="text-3xl pb-5">Order Items</h2>
             {order.orderItems.map((item, index) => (
               <div
@@ -178,42 +175,43 @@ const OrderScreen = () => {
         </div>
         <div className="w-1/3 border border-gray-300 bg-gray-50 rounded-md h-2/3 py-3 shadow-md mt-5 shadow-gray-300">
           <div>
-            <h2 className="font-bold text-3xl text-center">Order Summary</h2>
-            <Divider color={"bg-slate-300"} />
-            <div className="flex justify-between px-10 py-1">
+            <h2 className="font-bold text-3xl text-center border-b border-gray-300 pb-4">
+              Order Summary
+            </h2>
+            <div className="flex justify-between px-10 border-b border-gray-300 py-4">
               <div>Items:</div>
               <div>${order.itemsPrice}</div>
             </div>
-            <Divider color={"bg-slate-300"} />
-            <div className="flex justify-between px-10 py-1">
+            <div className="flex justify-between px-10 border-b border-gray-300 py-4">
               <div>Shipping: </div>
               <div>${order.shippingPrice}</div>
             </div>
-            <Divider color={"bg-slate-300"} />
-            <div className="flex justify-between px-10 py-1">
+
+            <div className="flex justify-between px-10 border-b border-gray-300 py-4">
               <div>Tax: </div>
               <div>${order.taxPrice}</div>
             </div>
-            <Divider color={"bg-slate-300"} />
-            <div className="flex justify-between px-10 py-1">
+
+            <div className="flex justify-between px-10 border-b border-gray-300 py-4">
               <div>Total: </div>
               <div>${order.totalPrice}</div>
             </div>
-            <Divider color={"bg-slate-300"} />
+
             {!order.isPaid && (
-              <div className="flex justify-between px-10 py-1">
+              <div className="px-10 py-1">
                 {loadingPay && <Loader />}
                 {isPending ? (
                   <div>Loading...</div>
                 ) : (
-                  <div className="w-full ">
-                    <button
-                      onClick={onApproveTest}
-                      className="bg-slate-900 text-white p-2 rounded-md"
-                    >
-                      Test Pay Order
-                    </button>
-
+                  <>
+                    <div className="w-full flex justify-center my-2">
+                      <button
+                        onClick={onApproveTest}
+                        className="bg-slate-900 text-white p-2 rounded-md"
+                      >
+                        Test Pay Order
+                      </button>
+                    </div>
                     <div>
                       <PayPalButtons
                         createOrder={createOrder}
@@ -221,12 +219,12 @@ const OrderScreen = () => {
                         onError={onError}
                       ></PayPalButtons>
                     </div>
-                  </div>
+                  </>
                 )}
               </div>
             )}
 
-            <div id="delivered-btn" className="flex justify-center ">
+            <div id="delivered-btn" className="flex justify-center py-2">
               {/*delivered status admin*/}
               {loadingDeliver && <Loader />}
               {!order.isDelivered && (

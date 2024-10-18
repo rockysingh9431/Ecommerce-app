@@ -24,12 +24,10 @@ const UserProfile = () => {
     }
   };
   const toggleProfileMenu = () => {
-    console.log("profile Toggle");
     setProfileMenuVisibility(!profileMenuVisibility);
     setAdminMenuVisibility(false);
   };
   const toggleAdminMenu = () => {
-    console.log("admin Toggle");
     setAdminMenuVisibility(true);
     setProfileMenuVisibility(false);
   };
@@ -44,7 +42,6 @@ const UserProfile = () => {
         profileMenuRef.current &&
         !profileMenuRef.current.contains(event.target)
       ) {
-        console.log(profileMenuRef.current.contains(event.target));
         setProfileMenuVisibility(false);
       }
 
@@ -52,7 +49,6 @@ const UserProfile = () => {
         adminMenuRef.current &&
         !adminMenuRef.current.contains(event.target)
       ) {
-        console.log(adminMenuRef.current);
         setAdminMenuVisibility(false);
       }
     };
@@ -70,7 +66,6 @@ const UserProfile = () => {
     setProfileMenuVisibility(false);
     setAdminMenuVisibility(false);
   }, [userInfo]);
-  console.log(adminMenuVisibility);
   return (
     <div className="w-1/2 flex items-center justify-between p-1">
       <div id="signin" className="md:mr-3">

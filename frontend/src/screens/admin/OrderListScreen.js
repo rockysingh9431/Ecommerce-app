@@ -6,7 +6,6 @@ import { useGetOrdersQuery } from "../../slice_store/orderApiSlice";
 
 const OrderListScreen = () => {
   const { data: orders, isLoading, error } = useGetOrdersQuery();
-  console.log(orders);
   return (
     <div className="pt-24 w-full">
       <h1 className="text-center text-teal-950 font-bold text-4xl mb-5">

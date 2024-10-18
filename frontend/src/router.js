@@ -22,7 +22,7 @@ import Header from "./navbar/Header";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: [<Header />],
+    element: <Header />,
     children: [
       {
         index: true,
@@ -92,7 +92,7 @@ const router = createBrowserRouter([
             element: <ProductEditScreen />,
           },
           {
-            path: "Users",
+            path: "users",
             element: <UserListScreen />,
           },
           {
@@ -101,7 +101,6 @@ const router = createBrowserRouter([
           },
           {
             path: "products/create",
-
             element: <CreateProductScreen />,
           },
         ],

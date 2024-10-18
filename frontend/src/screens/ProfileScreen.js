@@ -46,7 +46,6 @@ const ProfileScreen = () => {
       }
     }
   };
-  console.log(orders);
 
   return (
     <div className="p-5 md:p-20 block md:flex justify-between flex-nowrap pt-24">

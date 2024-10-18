@@ -8,10 +8,9 @@ const generateToken = require("../utils/generateToken");
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-
   if (user && (await user.matchPassword(password))) {
-    generateToken(req, res, user._id);
-    res.json({
+    generateToken(res, user._id);
+    res.status(201).json({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -154,7 +153,6 @@ const deleteUserById = asyncHandler(async (req, res) => {
 // @routes PUT /api/users/:id
 // @access Private
 const updateUserById = asyncHandler(async (req, res) => {
-  console.log("hello");
   const user = await User.findById(req.params.id);
   if (user) {
     user.name = req.body.name || user.name;

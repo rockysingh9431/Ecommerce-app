@@ -30,9 +30,11 @@ const SignInScreen = () => {
       dispatch(setCredentials({ ...res }));
       navigate(redirect);
     } catch (err) {
+      console.error("Error Details:", err);
       toast.error(err?.data?.message || err.error);
     }
   };
+
   return (
     <div className="p-24">
       <h1 className="text-center text-4xl font-bold text-red-700 font-serif">
