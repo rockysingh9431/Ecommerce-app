@@ -6,7 +6,7 @@ import ProductCarousel from "../components/ProductCarousel";
 // import Paginate from "../components/Paginate";
 // import ProductCarousel from "../components/ProductCarousel";
 
-const Homescreen = () => {
+const HomeScreen = () => {
   const { keyword } = useParams();
   const { data, isLoading, error } = useGetProductsQuery({
     keyword,
@@ -52,4 +52,4 @@ const Homescreen = () => {
     </div>
   );
 };
-export default Homescreen;
+export default HomeScreen;
