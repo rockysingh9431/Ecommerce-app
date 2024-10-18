@@ -96,6 +96,10 @@ const SignInScreen = () => {
           </form>
         </div>
       </div>
+      <div className="text-xl mt-5 text-red-950 font-bold">
+        <p className="text-center  ">Demo Email: user1@gmail.com</p>
+        <p className="text-center  ">Demo Pass: 12345</p>
+      </div>
     </div>
   );
 };

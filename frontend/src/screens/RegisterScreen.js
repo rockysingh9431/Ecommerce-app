@@ -11,7 +11,7 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState();
-
+  const [isAdmin, setIsAdmin] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [register, { isLoading }] = useRegisterMutation();
@@ -87,10 +87,21 @@ const RegisterScreen = () => {
               </label>
               <input
                 className="border border-gray-300 focus:outline-none focus:border-green-900 p-2 px-4 rounded-md w-full"
-                type="confirmPassword"
+                type="password"
                 placeholder="Enter your Confirmation password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+            <div className="flex justify-start items-center w-full">
+              <label className="text-lg text-gray-700">
+                Are you an Admin...?
+              </label>
+              <input
+                className=" w-10"
+                type="checkbox"
+                checked={isAdmin}
+                onChange={(e) => setIsAdmin(e.target.checked)}
               />
             </div>
             <div className="pt-3 flex justify-between items-center">
